@@ -13,7 +13,7 @@ function init() {
       dropdown.append("option").text(id);              
     });
     
-    // call Plot functions:
+    // call functions:
     barPlot(data.names[0]);
     bubblePlot(data.names[0]);
     updateinfo(data.names[0]);
@@ -31,7 +31,7 @@ function barPlot(subjectid){
   d3.json("samples.json").then((data) => {
     // filter the sample object, locate the one that ID is the same as the subjectid
     sampleData=data.samples.filter(i => i.id=== subjectid)[0];
-   console.log(sampleData)
+    console.log(sampleData)
     //get the top 10 otu id
     var top10 = sampleData.otu_ids.slice(0,10);     
     var otutop10 = top10.map(t => "OTU "+ t);
@@ -52,10 +52,10 @@ function barPlot(subjectid){
           color: '0069b3'},
           type:"bar",
           }
-      var data = [bartrace];
+    var data = [bartrace];
 
-      //create the layout variable to set plots layout
-      var barlayout = {
+    //create the layout variable to set plots layout
+    var barlayout = {
           font:{family:"Courier New, monospace"},
           title:"Top 10 Bacteria Cultures Found",
           yaxis:{
@@ -68,9 +68,7 @@ function barPlot(subjectid){
               b:40
           }
       }
-      Plotly.newPlot("bar",data,barlayout)
-
-       
+      Plotly.newPlot("bar",data,barlayout);      
 });
 }
     
@@ -85,27 +83,27 @@ function bubblePlot(subjectid){
       
     //Create the bubble chart
     var bubbletrace = {
-            x : sampleData.otu_ids,
-            y : sampleData.sample_values,
-            mode: "markers",
-            marker:{
-                color:['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)','rgb(120,120,120)', 'rgb(120,120,120)', 'red', 'rgb(120,120,120)'],
-                size:sampleData.sample_values
+          x : sampleData.otu_ids,
+          y : sampleData.sample_values,
+          mode: "markers",
+          marker:{
+              color:['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)','rgb(120,120,120)', 'rgb(120,120,120)', 'red', 'rgb(120,120,120)'],
+              size:sampleData.sample_values
             },
-            text:sampleData.otu_labels
+          text:sampleData.otu_labels
           }
   
-        //set the layout for the bubble plot
-        var bubblelayout ={
-            title:"Bacteria Cultures per sample",
-            font:{family:"Courier New, monospace"},
-            xaxis:{
-                title:"OTU ID",
-            },
+    //set the layout for the bubble plot
+    var bubblelayout ={
+          title:"Bacteria Cultures per sample",
+          font:{family:"Courier New, monospace"},
+          xaxis:{
+              title:"OTU ID",
+          },
         }
-        var data2 = [bubbletrace];
+    var data2 = [bubbletrace];
   
-        Plotly.newPlot("bubble",data2,bubblelayout)      
+    Plotly.newPlot("bubble",data2,bubblelayout)      
   });
   }
 // set the function to update infor box
@@ -137,22 +135,19 @@ function bubblePlot(subjectid){
 function updateinfo(subjectid){
   d3.json("samples.json").then((data) => {
       
-      //create the info box 
+      //set the metadata
       var metadata = data.metadata
-      //select the result of infobox
-      var results = metadata.filter(d => d.id.toString()===subjectid)[0];
-      //select the frequency of wach
-      // var wfreq = results.wfreq
-  
+      //filter through the metadata via subjectID
+      var info = metadata.filter(d => d.id.toString()===subjectid)[0];
+     
       //select the infor box area
       var infoBox = d3.select("#sample-metadata")
 
-      //empty the demographci info panel eath time before getting the new id
+      //clear the infor box each time before render the new data
       infoBox.html("");
 
       //grab the necessaty demographic data for the id and append the info to the infobox
-      Object.entries(results).forEach((d) => {infoBox.append("h5").text(d[0].toUpperCase() + ":"+ "\n"+ d[1] + "\n")});
-      
+      Object.entries(info).forEach((i) => {infoBox.append("h6").text(i[0].toUpperCase() + ":"+ i[1] + "\n")});
       
 })
 };
