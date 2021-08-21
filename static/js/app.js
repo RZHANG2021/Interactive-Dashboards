@@ -109,29 +109,58 @@ function bubblePlot(subjectid){
   });
   }
 // set the function to update infor box
-function updateinfo(subjectid){
-      d3.json("samples.json").then((data) => {
-          
-          //create the info box 
-          var metaData = data.metadata
-          console.log(metaData);
-          //select the result of infobox
-          var demoInfo = metaData.filter(i => i.id===subjectid)[0];
-          //select the frequency of wach
-          // var wfreq = results.wfreq
+// function updateinfo(subjectid){
+//   d3.json("samples.json").then((data) => {
+//     // filter the sample object, locate the one that ID is the same as the subjectid
+//     metaData =data.metadata.filter(i => i.id=== subjectid)[0];        
+//           // //create the info box 
+//           // var metaData = data.metadata
+//     console.log(metaData);
+//           //select the result of infobox
+//           var demoInfo = metaData.filter(i => i.id===subjectid)[0];
+//           //select the frequency of wach
+//           // var wfreq = results.wfreq
       
-          //select the infor box area
-          var infoBox = d3.select("#sample-metadata")
+//           //select the infor box area
+//           var infoBox = d3.select("#sample-metadata")
     
-          //empty the demographci info panel eath time before getting the new id
-          infoBox.html("");
+//           //empty the demographci info panel eath time before getting the new id
+//           infoBox.html("");
     
-          //grab the necessaty demographic data for the id and append the info to the infobox
-          Object.entries(demoInfo).forEach((d) => {infoBox.append("h5").text(d[0].toUpperCase() + ":"+ "\n"+ d[1] + "\n")});
+//           //grab the necessaty demographic data for the id and append the info to the infobox
+//           Object.entries(demoInfo).forEach((d) => {infoBox.append("h5").text(d[0].toUpperCase() + ":"+ "\n"+ d[1] + "\n")});
           
   
-    });
-    }
+//     });
+//     }
+
+function updateinfo(subjectid){
+  d3.json("samples.json").then((data) => {
+      
+      //create the info box 
+      var metadata = data.metadata
+      //select the result of infobox
+      var results = metadata.filter(d => d.id.toString()===subjectid)[0];
+      //select the frequency of wach
+      // var wfreq = results.wfreq
+  
+      //select the infor box area
+      var infoBox = d3.select("#sample-metadata")
+
+      //empty the demographci info panel eath time before getting the new id
+      infoBox.html("");
+
+      //grab the necessaty demographic data for the id and append the info to the infobox
+      Object.entries(results).forEach((d) => {infoBox.append("h5").text(d[0].toUpperCase() + ":"+ "\n"+ d[1] + "\n")});
+      
+      
+})
+};
+
+
+
+
+
 
 
 
@@ -206,6 +235,8 @@ function updateinfo(subjectid){
 // })
 // };  
 function optionChanged(idNames) {
-  drawPlot(idNames);
-  buildgauge(idNames);
+  barPlot(subjectid);
+  bubblePlot(subjectid);
+  updateinfo(subjectid)
+  // buildgauge(idNames);
 }
