@@ -3,8 +3,9 @@ function barPlot(subjectid){
 //read through the json data file 
   d3.json("samples.json").then((data) => {
     // filter the sample object, locate the one that ID is the same as the subjectid
+    // console.log(data.samples[0]);
     sampleData=data.samples.filter(i => i.id=== subjectid)[0];
-    console.log(sampleData)
+    // console.log(sampleData);
     //get the top 10 otu id
     var top10 = sampleData.otu_ids.slice(0,10);     
     var otutop10 = top10.map(t => "OTU "+ t);
@@ -141,7 +142,7 @@ function gaugeplot(subjectid){
         width: 500,
         height: 400,
         margin: { t: 25, r: 25, l: 25, b: 25 },
-        paper_bgcolor: "lavender",
+        paper_bgcolor: "white",
         font: { color: "darkblue", family: "Courier New, monospace" }
       };
       
