@@ -122,15 +122,18 @@ function gaugeplot(subjectid){
           title: { text: "Belly Button Washing Frequency", font: { size: 24 } },
           delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
           gauge: {
-            axis: { range: [null, 10], tickwidth: 1, tickcolor: "darkblue" },
+            axis: { range: [null, 10], tickwidth: 2, tickcolor: "darkblue" },
             bar: { color: "darkblue" },
             bgcolor: "white",
             borderwidth: 2,
             bordercolor: "gray",
-            // steps: [
-            //   { range: [0, 4], color: "cyan" },
-            //   { range: [5, 10], color: "royalblue" }
-            // ],
+            steps: [
+              { range: [0, 2], color: "cyan" },
+              { range: [2, 4], color: "lightblue" },
+              { range: [4, 6], color: "royalblue" },
+              { range: [6, 8], color: "darkblue" },
+              { range: [8, 10], color: "navyblue" }
+            ],
             threshold: {
               line: { color: "red", width: 4 },
               thickness: 0.75,
