@@ -123,7 +123,7 @@ function gaugeplot(subjectid){
           delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
           gauge: {
             axis: { range: [null, 10], tickwidth: 2, tickcolor: "darkblue" },
-            bar: { color: "darkblue" },
+            bar: { color: "yellow" },
             bgcolor: "white",
             borderwidth: 2,
             bordercolor: "gray",
@@ -148,7 +148,7 @@ function gaugeplot(subjectid){
         height: 400,
         margin: { t: 25, r: 25, l: 25, b: 25 },
         paper_bgcolor: "white",
-        font: { color: "darkblue", family: "Courier New, monospace" }
+        font: { color: "black", family: "Courier New, monospace" }
       };
       
       // Plotly.newPlot('myDiv', data, layout);
