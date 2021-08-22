@@ -53,7 +53,7 @@ function bubblePlot(subjectid){
   d3.json("samples.json").then((data) => {
     // filter the sample object, locate the one that ID is the same as the subjectid
     sampleData=data.samples.filter(i => i.id=== subjectid)[0];
-    // console.log(sampleData)
+    console.log(sampleData)
       
     //Create the bubble chart
     var bubbletrace = {
@@ -61,7 +61,9 @@ function bubblePlot(subjectid){
           y : sampleData.sample_values,
           mode: "markers",
           marker:{
-              color:['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)','rgb(120,120,120)', 'rgb(120,120,120)', 'red', 'rgb(120,120,120)'],
+              // color:['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)','rgb(120,120,120)'],
+              colorscale:"Earth",
+              color:sampleData.otu_ids,
               size:sampleData.sample_values
             },
           text:sampleData.otu_labels
@@ -125,10 +127,10 @@ function gaugeplot(subjectid){
             bgcolor: "white",
             borderwidth: 2,
             bordercolor: "gray",
-            steps: [
-              { range: [0, 4], color: "cyan" },
-              { range: [5, 10], color: "royalblue" }
-            ],
+            // steps: [
+            //   { range: [0, 4], color: "cyan" },
+            //   { range: [5, 10], color: "royalblue" }
+            // ],
             threshold: {
               line: { color: "red", width: 4 },
               thickness: 0.75,
@@ -175,11 +177,14 @@ function init() {
   });
 }
 
+// call the init function
 init();
 
+// set function optionChange when the subject ID change, the below funsctions are called.
 function optionChanged(subjectid) {
   barPlot(subjectid);
   bubblePlot(subjectid);
   updateinfo(subjectid);
   gaugeplot(subjectid);
+  
 }
