@@ -1,29 +1,3 @@
-// Set init function to render subject ID and run plots functions
-function init() {
-  //select the dropdown area
-  var dropdown = d3.select("#selDataset");
-
-  //read through the json data file     
-  d3.json("data/samples.json").then((data)=>{
-    //locate the ID data and set it to subjectID, append it to a drowpdown list
-    subjectIDs = data[Object.keys(data)[0]] 
-    // console.log(subjectID);   
-    subjectIDs.forEach(function(id){
-    // console.log(id);
-      dropdown.append("option").text(id);              
-    });
-    
-    // call functions:
-    barPlot(data.names[0]);
-    bubblePlot(data.names[0]);
-    updateinfo(data.names[0]);
-    gaugeplot(data.names[0]);
-  });
-}
-
-init();
-
-
 // set the function to create bar plots
 function barPlot(subjectid){
 //read through the json data file 
@@ -176,6 +150,31 @@ function gaugeplot(subjectid){
       Plotly.newPlot('gauge', data3, gaugelayout);
 });
 }
+
+// Set init function to render subject ID and run plots functions
+function init() {
+  //select the dropdown area
+  var dropdown = d3.select("#selDataset");
+
+  //read through the json data file     
+  d3.json("data/samples.json").then((data)=>{
+    //locate the ID data and set it to subjectID, append it to a drowpdown list
+    subjectIDs = data[Object.keys(data)[0]] 
+    // console.log(subjectID);   
+    subjectIDs.forEach(function(id){
+    // console.log(id);
+      dropdown.append("option").text(id);              
+    });
+    
+    // call functions:
+    barPlot(data.names[0]);
+    bubblePlot(data.names[0]);
+    updateinfo(data.names[0]);
+    gaugeplot(data.names[0]);
+  });
+}
+
+init();
 
 function optionChanged(subjectid) {
   barPlot(subjectid);
