@@ -19,6 +19,8 @@ The below steps were followed to build the interactive dashboard where all of th
 5. Display each key-value pair from the metadata JSON object on the page.
 6. Adapt the Gauge Chart from https://plot.ly/javascript/gauge-charts/ to plot the weekly washing frequency of the individual. Modify the example gauge code to account for values ranging from 0 through 9.
 7. Update all of the plots any time that a new sample is selected.
+
 The dashboard displays as per below:
 
+![webpagedisplay](https://user-images.githubusercontent.com/82508049/130358007-d18f5254-8232-4d3b-81e7-f57a53785746.png)
 
