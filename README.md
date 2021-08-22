@@ -25,5 +25,6 @@ The below steps were followed to build the interactive dashboard where all of th
 
 The dashboard displays as per below:
 
-![webpagedisplay](https://user-images.githubusercontent.com/82508049/130358007-d18f5254-8232-4d3b-81e7-f57a53785746.png)
+![webpagedisplay](https://user-images.githubusercontent.com/82508049/130358074-886cebbc-21ff-4e04-a641-c50d9600779a.png)
+
 
