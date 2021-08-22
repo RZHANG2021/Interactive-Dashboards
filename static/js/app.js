@@ -83,6 +83,8 @@ function bubblePlot(subjectid){
   });
   }
 
+// set the function to update the info box
+
 function updateinfo(subjectid){
   d3.json("samples.json").then((data) => {
       
@@ -103,7 +105,7 @@ function updateinfo(subjectid){
 })
 };
 
-
+// set the function to plot the gauge chart
 function gaugeplot(subjectid){
   d3.json("samples.json").then((data) => {
       
