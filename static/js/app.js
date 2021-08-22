@@ -17,8 +17,7 @@ function init() {
     barPlot(data.names[0]);
     bubblePlot(data.names[0]);
     updateinfo(data.names[0]);
-    // call builtgauge function:
-    // buildgauge(data.names[0]);
+    gaugeplot(data.names[0]);
   });
 }
 
@@ -106,31 +105,6 @@ function bubblePlot(subjectid){
     Plotly.newPlot("bubble",data2,bubblelayout)      
   });
   }
-// set the function to update infor box
-// function updateinfo(subjectid){
-//   d3.json("samples.json").then((data) => {
-//     // filter the sample object, locate the one that ID is the same as the subjectid
-//     metaData =data.metadata.filter(i => i.id=== subjectid)[0];        
-//           // //create the info box 
-//           // var metaData = data.metadata
-//     console.log(metaData);
-//           //select the result of infobox
-//           var demoInfo = metaData.filter(i => i.id===subjectid)[0];
-//           //select the frequency of wach
-//           // var wfreq = results.wfreq
-      
-//           //select the infor box area
-//           var infoBox = d3.select("#sample-metadata")
-    
-//           //empty the demographci info panel eath time before getting the new id
-//           infoBox.html("");
-    
-//           //grab the necessaty demographic data for the id and append the info to the infobox
-//           Object.entries(demoInfo).forEach((d) => {infoBox.append("h5").text(d[0].toUpperCase() + ":"+ "\n"+ d[1] + "\n")});
-          
-  
-//     });
-//     }
 
 function updateinfo(subjectid){
   d3.json("samples.json").then((data) => {
@@ -147,91 +121,65 @@ function updateinfo(subjectid){
       infoBox.html("");
 
       //grab the necessaty demographic data for the id and append the info to the infobox
-      Object.entries(info).forEach((i) => {infoBox.append("h6").text(i[0].toUpperCase() + ":"+ i[1] + "\n")});
+      Object.entries(info).forEach((i) => {infoBox.append("h6").text(i[0].toUpperCase() + ":"+ i[1] )});
       
 })
 };
 
 
-
-
-
-
-
-
-
-
-
-// function buildgauge(idNames){
-//   d3.json("samples.json").then((data) => {
+function gaugeplot(subjectid){
+  d3.json("samples.json").then((data) => {
       
-//       //create the info box 
-//       var metadata = data.metadata
-//       //select the result of infobox
-//       var results = metadata.filter(d => d.id.toString()===idNames)[0];
-//       //select the frequency of wach
-//       var wfreq = results.wfreq
-  
-//       //select the infor box area
-//       var infoBox = d3.select("#sample-metadata")
+      //set the metadata
+      var metadata = data.metadata
+      //filter through the metadata via subjectID
+      var info = metadata.filter(d => d.id.toString()===subjectid)[0];
+      //set the wash frequency as a varible 
+      var washes = info.wfreq
+    
+      var data3 = [
+        {
+          type: "indicator",
+          mode: "gauge+number+delta",
+          value: washes,
+          title: { text: "Belly Button Washing Frequency", font: { size: 24 } },
+          delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
+          gauge: {
+            axis: { range: [null, 10], tickwidth: 1, tickcolor: "darkblue" },
+            bar: { color: "darkblue" },
+            bgcolor: "white",
+            borderwidth: 2,
+            bordercolor: "gray",
+            steps: [
+              { range: [0, 4], color: "cyan" },
+              { range: [5, 10], color: "royalblue" }
+            ],
+            threshold: {
+              line: { color: "red", width: 4 },
+              thickness: 0.75,
+              value: washes
+            }
+          }
+        }
+      ];
+      
+      var gaugelayout = {
+        width: 500,
+        height: 400,
+        margin: { t: 25, r: 25, l: 25, b: 25 },
+        paper_bgcolor: "lavender",
+        font: { color: "darkblue", family: "Courier New, monospace" }
+      };
+      
+      // Plotly.newPlot('myDiv', data, layout);
+      
+      Plotly.newPlot('gauge', data3, gaugelayout);
+});
+}
 
-//       //empty the demographci info panel eath time before getting the new id
-//       infoBox.html("");
-
-//       //grab the necessaty demographic data for the id and append the info to the infobox
-//       Object.entries(results).forEach((d) => {infoBox.append("h5").text(d[0].toUpperCase() + ":"+ "\n"+ d[1] + "\n")});
-      
-//       var data2 = [
-//           {
-//             type: "indicator",
-//             mode: "gauge+number+delta",
-//             value: wfreq,
-//             title: { text: "Belly Button Washing Frequency", font: { size: 24 ,family:"Arial Rounded MT Bold"} },
-//             delta: { reference: 5, increasing: { color: "RebeccaPurple" } },
-//             gauge: {
-//               axis: { range: [null, 9], tickwidth: 2, tickcolor: "gray", splitNumber:8 },
-           
-//               bar: { color: "rgb(13, 38, 85)" },
-//               bgcolor: "white",
-//               borderwidth: 2,
-//               bordercolor: "gray",
-//               steps: [
-//                 {range:[0,1], color:"rgba(0, 105, 11, .5)"},
-//                 {range:[1,2], color:"rgba(10, 120, 22, .5)"},
-//                 {range:[2,3], color:"rgba(14, 127, 0, .5)"},
-//                 {range:[3,4], color:"rgba(110, 154, 22, .5)"},
-//                 {range:[4,5], color:"rgba(170, 202, 42, .5)"},
-//                 {range:[5,6], color:"rgba(202, 209, 95, .5)"},
-//                 {range:[6,7], color:"rgba(210, 206, 145, .5)"},
-//                 {range:[7,8], color:"rgba(232, 226, 202, .5)"},
-//                 {range:[8,9], color:"rgba(240, 230, 215, .5)"},
-//               ],
-//               threshold: {
-//                 line: { color: "red", width: 4 },
-//                 thickness: 0.75,
-//                 value: wfreq
-//               }
-//             }
-//           }
-//         ];
-        
-//         var layout2 = {
-//           width: 500,
-//           height: 400,
-//           margin: { t: 25, r: 25, l: 25, b: 25 },
-//           paper_bgcolor: "white",
-//           font: { color: "rgb(13, 38, 85)", family:"Arial Rounded MT Bold" }
-//         };
-        
-      
-//       // Plot Gauge Chart
-      
-//       Plotly.newPlot("gauge", data2, layout2);
-// })
-// };  
-function optionChanged(idNames) {
+function optionChanged(subjectid) {
   barPlot(subjectid);
   bubblePlot(subjectid);
-  updateinfo(subjectid)
-  // buildgauge(idNames);
+  updateinfo(subjectid);
+  gaugeplot(subjectid);
 }
