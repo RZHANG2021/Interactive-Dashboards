@@ -27,7 +27,7 @@ init();
 // set the function to create bar plots
 function barPlot(subjectid){
 //read through the json data file 
-  d3.json("samples.json").then((data) => {
+  d3.json("../data/samples.json").then((data) => {
     // filter the sample object, locate the one that ID is the same as the subjectid
     // console.log(data.samples[0]);
     sampleData=data.samples.filter(i => i.id=== subjectid)[0];
@@ -76,7 +76,7 @@ function barPlot(subjectid){
 // set the function to create bubble plots
 function bubblePlot(subjectid){
   //read through the json data file 
-  d3.json("samples.json").then((data) => {
+  d3.json("../data/samples.json").then((data) => {
     // filter the sample object, locate the one that ID is the same as the subjectid
     sampleData=data.samples.filter(i => i.id=== subjectid)[0];
     console.log(sampleData)
@@ -112,7 +112,7 @@ function bubblePlot(subjectid){
 // set the function to update the info box
 
 function updateinfo(subjectid){
-  d3.json("samples.json").then((data) => {
+  d3.json("../data/samples.json").then((data) => {
       
       //set the metadata
       var metadata = data.metadata
@@ -133,7 +133,7 @@ function updateinfo(subjectid){
 
 // set the function to plot the gauge chart
 function gaugeplot(subjectid){
-  d3.json("samples.json").then((data) => {
+  d3.json("../data/samples.json").then((data) => {
       
       //set the metadata
       var metadata = data.metadata
